@@ -1,0 +1,20 @@
+#!/bin/sh
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
+#------------------------------------------------------------------------------
+
+restore0Dir
+
+runApplication blockMesh
+
+cp 0/Sb.org 0/Sb
+
+#cp constant/K.org 0/K
+
+runApplication decomposePar
+
+runParallel setFields
+
+runParallel $(getApplication)
+#runApplication $(getApplication)
+#------------------------------------------------------------------------------
