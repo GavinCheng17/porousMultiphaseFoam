@@ -1,0 +1,82 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2206                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     impesFoam;
+
+startFrom       latestTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         30000000;
+
+deltaT          1;
+
+writeControl    adjustableRunTime;
+
+writeInterval   100000;
+
+purgeWrite      0;
+
+writeFormat     binary;
+
+writePrecision  15;
+
+writeCompression on;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable yes;
+
+CFL            Coats;
+
+maxCo           0.75;
+
+dSmax           0.5;
+
+maxDeltaT	10000;
+
+eventTimeTracking true;
+/*
+functions
+{
+    surfaces
+    {
+        type            surfaces;
+        libs            (geometricVoF sampling);
+        writeControl    writeTime;
+
+        surfaceFormat   vtp;
+        fields          (p U);
+
+        interpolationScheme cell;
+
+        surfaces
+        {
+            freeSurf
+            {
+                type            interface;
+                interpolate     false;
+            }
+        }
+    }
+}
+*/
+// ************************************************************************* //

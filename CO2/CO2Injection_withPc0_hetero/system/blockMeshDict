@@ -1,0 +1,108 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2206                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+scale   1;
+
+L       480;
+nx      799;
+nx_inj  1;
+
+z1	0.05;
+z2	-0.05;
+nz	1;
+
+H	40;
+ny	120;
+
+L_injector	0.5;
+
+
+vertices
+(
+    (0 0 $z1)
+    ($L_injector 0 $z1)
+    ($L 0 $z1)
+    ($L $H $z1)
+    (0 $H $z1)
+    (0 $H $z2) 
+    ($L $H $z2)
+    ($L 0 $z2)
+    ($L_injector 0 $z2) 
+    (0 0 $z2)
+    ($L_injector $H $z1)
+    ($L_injector $H $z2)
+);
+
+blocks
+(
+    hex (9 8 11 5 0 1 10 4) porosity ($nx_inj $ny $nz) simpleGrading (1 1 1)
+    hex (8 7 6 11 1 2 3 10) porosity ($nx $ny $nz) simpleGrading (1 1 1)
+);
+
+edges
+(
+);
+
+boundary
+(
+    leftWall
+    {
+        type wall;
+        faces
+        (
+            (0 4 5 9)
+        );
+    }
+    topWall
+    {
+        type wall;
+        faces
+        (
+            (4 10 11 5)
+	    (10 3 6 11)
+        );
+    }
+    lowerWall
+    {
+        type wall;
+        faces
+        (
+            (8 7 2 1)
+        );
+    }
+    injector
+    {
+        type patch;
+        faces
+        (
+            (1 0 9 8)
+        );
+    }
+    rightSpace
+    {
+        type patch;
+        faces
+        (
+            (3 2 7 6)
+        );
+    }
+);
+
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //
