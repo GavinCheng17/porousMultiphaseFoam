@@ -64,7 +64,7 @@ Foam::porousMediumModel::porousMediumModel
         IOobject
         (
             "K"+porousRegion,
-            mesh.time().constant(),
+            mesh.time().timeName(),
             mesh,
             IOobject::READ_IF_PRESENT,
             IOobject::NO_WRITE
